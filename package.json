@@ -1,0 +1,9 @@
+{
+  "name": "command-epguides",
+  "version": "1.0.0",
+  "dependencies": {
+    "chalk": "^2.3.0",
+    "cross-env": "5.0.5",
+    "request": "^2.83.0"
+  }
+}
