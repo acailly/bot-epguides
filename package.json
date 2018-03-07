@@ -1,5 +1,5 @@
 {
-  "name": "command-epguides",
+  "name": "bot-epguides",
   "version": "1.0.0",
   "dependencies": {
     "chalk": "^2.3.0",

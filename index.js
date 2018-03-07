@@ -1,47 +1,43 @@
-const request = require('request')
-const chalk = require('chalk')
+const request = require("request");
+const chalk = require("chalk");
 
-const tvshows = [
-  'siliconvalley',
-  'mrrobot'
-]
+const tvshows = ["siliconvalley", "mrrobot"];
 
-module.exports = function (vorpal) {
+module.exports = function(vorpal) {
   vorpal
-    .command('epguides <tvshow>')
-    .alias('ep')
+    .command("epguides <tvshow>")
+    .alias("ep")
     .autocomplete(tvshows)
-    .description('Get next episode of your favorite tv shows')
-    .action(function (args, callback) {
-      const input = args.tvshow
+    .description("Get next episode of your favorite tv shows")
+    .action(function(args, callback) {
+      const input = args.tvshow;
 
-      const requestUrl = `http://epguides.frecar.no/show/${input}/next`
-      this.log(requestUrl)
+      const requestUrl = `http://epguides.frecar.no/show/${input}/next`;
+      this.log(requestUrl);
 
-      request
-        .get(requestUrl, (error, response, body) => {
-          if (error) {
-            callback(error)
-            return error
-          }
-          body = JSON.parse(body)
+      request.get(requestUrl, (error, response, body) => {
+        if (error) {
+          callback(error);
+          return error;
+        }
+        body = JSON.parse(body);
 
-          if (!body.episode) {
-            const message = chalk.red('No result')
-            callback(message)
-            return message
-          }
+        if (!body.episode) {
+          const message = chalk.red("No result");
+          callback(message);
+          return message;
+        }
 
-          const episode = body.episode
+        const episode = body.episode;
 
-          const releaseDate = chalk.green(episode.release_date)
-          const title = chalk.yellow(episode.title)
+        const releaseDate = chalk.green(episode.release_date);
+        const title = chalk.yellow(episode.title);
 
-          const result = `${releaseDate}\t ${title}`
-          callback(result)
-        })
-    })
-}
+        const result = `${releaseDate}\t ${title}`;
+        callback(result);
+      });
+    });
+};
 
 /*
   {"error": "Episode not found"}
